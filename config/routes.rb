@@ -11,6 +11,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       post "users/signup", to: "users#signup"
       post "auth/signin", to: "auth#signin"
+
+      get  "content",       to: "contents#index"
+      post "contents",      to: "contents#create"
+      put  "contents/:id",  to: "contents#update"
+      delete "contents/:id", to: "contents#destroy"
     end
   end
 end
