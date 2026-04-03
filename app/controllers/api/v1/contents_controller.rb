@@ -5,37 +5,13 @@ class Api::V1::ContentsController < ApplicationController
 
   def index
     contents = Content.all
-    render json: {
-      data: contents.map do |content|
-        {
-          id: content.id,
-          type: "content",
-          attributes: {
-            title: content.title,
-            body: content.body,
-            createdAt: content.created_at,
-            updatedAt: content.updated_at
-          }
-        }
-      end
-    }, status: :ok
+    render json: ContentSerializer.new(contents).serializable_hash, status: :ok
   end
 
   def create
     content = @current_user.contents.build(content_params)
     if content.save
-      render json: {
-        data: {
-          id: content.id,
-          type: "content",
-          attributes: {
-            title: content.title,
-            body: content.body,
-            createdAt: content.created_at,
-            updatedAt: content.updated_at
-          }
-        }
-      }, status: :created
+      render json: ContentSerializer.new(content).serializable_hash, status: :created
     else
       render json: { error: content.errors.full_messages }, status: :unprocessable_entity
     end
@@ -43,18 +19,7 @@ class Api::V1::ContentsController < ApplicationController
 
   def update
     if @content.update(content_params)
-      render json: {
-        data: {
-          id: @content.id,
-          type: "content",
-          attributes: {
-            title: @content.title,
-            body: @content.body,
-            createdAt: @content.created_at,
-            updatedAt: @content.updated_at
-          }
-        }
-      }, status: :ok
+      render json: ContentSerializer.new(@content).serializable_hash, status: :ok
     else
       render json: { error: @content.errors.full_messages }, status: :unprocessable_entity
     end
