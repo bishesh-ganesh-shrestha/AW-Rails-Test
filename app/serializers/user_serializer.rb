@@ -2,6 +2,7 @@ class UserSerializer
   include JSONAPI::Serializer
 
   set_type :users
+  set_key_transform :camel_lower
 
   attribute :token do |_user, params|
     params[:token]
