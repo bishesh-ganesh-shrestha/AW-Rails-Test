@@ -19,9 +19,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_HOST: ${DATABASE_HOST}
-      DATABASE_USERNAME: ${POSTGRES_USER}
-      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${DATABASE_NAME}
       JWT_SECRET: ${JWT_SECRET}
 
 volumes:
