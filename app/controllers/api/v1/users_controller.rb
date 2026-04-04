@@ -3,9 +3,11 @@ class Api::V1::UsersController < ApplicationController
     user = User.new(user_params)
 
     if user.save
-      head :created
+      token = JsonWebToken.encode(user_id: user.id)
+      render json: UserSerializer.new(user, params: { token: token }).serializable_hash,
+             status: :created
     else
-      render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+      head :unprocessable_entity
     end
   end
 
