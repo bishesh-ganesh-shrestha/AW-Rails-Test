@@ -57,12 +57,12 @@ Duplicated Postman Collection: https://documenter.getpostman.com/view/32115070/2
 
 3. Build and run with Docker
 ```bash
-   docker-compose up --build
+   docker compose up --build
 ```
 
 4. Run migrations in a separate terminal
 ```bash
-   docker-compose exec web rails db:create db:migrate
+   docker compose exec web rails db:create db:migrate
 ```
 
 5. API is available at `http://localhost:3000/api/v1`
