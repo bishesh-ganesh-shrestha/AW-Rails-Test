@@ -1,4 +1,9 @@
+# Handles user registration
 class Api::V1::UsersController < ApplicationController
+  # POST /api/v1/users/signup
+  # Registers a new user
+  #
+  # @return [JSON] created user with token or error
   def signup
     user = User.new(user_params)
 
@@ -13,6 +18,9 @@ class Api::V1::UsersController < ApplicationController
 
   private
 
+  # Permitted user parameters
+  #
+  # @return [ActionController::Parameters]
   def user_params
     params.permit(:first_name, :last_name, :email, :password, :country)
   end

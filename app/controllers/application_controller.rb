@@ -1,14 +1,19 @@
+# Base controller for API
 class ApplicationController < ActionController::API
   before_action :underscore_params
 
   private
 
-  # converts incoming camelCase params to snake_case
+  # Converts camelCase params to snake_case
+  #
+  # @return [void]
   def underscore_params
     params.deep_transform_keys! { |key| key.to_s.underscore }
   end
 
-  # authenticate every protected request
+  # Authenticates request using JWT token
+  #
+  # @return [void]
   def authenticate_request!
     token = extract_token
 
@@ -27,6 +32,9 @@ class ApplicationController < ActionController::API
     render json: { error: e.message }, status: :unauthorized
   end
 
+  # Extracts JWT token from Authorization header
+  #
+  # @return [String, nil] the token if present
   def extract_token
     auth_header = request.headers["Authorization"]
     auth_header&.split(" ")&.last

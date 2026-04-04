@@ -1,3 +1,4 @@
+# Serializes User model into JSON:API format with custom attributes
 class UserSerializer
   include JSONAPI::Serializer
 

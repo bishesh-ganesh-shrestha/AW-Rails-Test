@@ -1,3 +1,4 @@
+# Serializes Content model into JSON:API format with camelCase keys
 class ContentSerializer
   include JSONAPI::Serializer
 

@@ -1,4 +1,9 @@
+# Handles user authentication (sign in)
 class Api::V1::AuthController < ApplicationController
+  # POST /api/v1/auth/signin
+  # Authenticates user and returns JWT token
+  #
+  # @return [JSON] user data with token or error message
   def signin
     user = User.find_by(email: auth_params[:email])
 
@@ -14,6 +19,7 @@ class Api::V1::AuthController < ApplicationController
 
   private
 
+  # Permitted authentication params
   def auth_params
     params.require(:auth).permit(:email, :password)
   end
