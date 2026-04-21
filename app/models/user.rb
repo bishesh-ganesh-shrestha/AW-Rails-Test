@@ -9,6 +9,8 @@
 class User < ApplicationRecord
   has_secure_password
 
+  before_save { email.downcase! }
+
   has_many :contents, dependent: :destroy
 
   validates :first_name, presence: true
